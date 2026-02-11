@@ -97,3 +97,53 @@ end;
 
 --kutse 
 EXEC uuendaBrand 1, 'Bape';
+
+
+
+--iseseisev töö
+
+
+--lisa procedur
+CREATE PROCEDURE lisaCategories 
+@category_name varchar(30)
+as 
+BEGIN
+	INSERT INTO categories(category_name) VALUES (@category_name);
+	SELECT * FROM categories;
+END;
+
+
+--kutse
+EXEC lisaCategories 'Kirill2';
+
+
+--uue procedure
+create procedure uuendacategories
+@id int,
+@uus_categoryname varchar(30)
+as
+begin
+select * from categories;
+update categories set category_name=@uus_categoryname
+where category_id=@id;
+select * from brands;
+end;
+
+
+--kutse
+exec uuendacategories 1, 'uue_kingad';
+
+
+--kustuta procedure
+CREATE PROCEDURE kustutaCategories
+@id int 
+as
+BEGIN
+SELECT * FROM categories;
+Delete from categories where category_id=@id;
+SELECT * FROM categories;
+END;
+
+
+--kutsa
+EXEC kustutaCategories 2;
