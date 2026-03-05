@@ -99,3 +99,90 @@ select max(v_aasta) as suurem_aasta from auto;
 SELECT mark, AVG(v_aasta) as keskmine_aasta 
 from auto
 GRoup by mark;
+
+
+
+CREATE TABLE Products
+(
+    Id INT IDENTITY PRIMARY KEY,
+    ProductName NVARCHAR(30) NOT NULL,
+    Manufacturer NVARCHAR(20) NOT NULL,
+    ProductCount INT DEFAULT 0,
+    Price MONEY NOT NULL
+);
+
+insert into Products(ProductName, Manufacturer, ProductCount, Price)
+values('Koomid', 'KoomiPrint', 1300, 1.30),
+('Arvutid', 'TereMaailma', 2000, 1199.99),
+('Pallid', 'Paalnee', 956, 39.59),
+('Telefonid', 'Apple', 4000, 2000),
+('Rided', 'Nike', 21000, 2000);
+
+select * from Products;
+
+CREATE PROCEDURE ProductSummary
+AS
+BEGIN 
+SELECT ProductName AS Product, Manufacturer, Price
+FROM Products
+end;
+drop procedure productSummary
+--kutse 
+EXEC ProductSummary;
+
+
+--proceduur mis lisab uus produkt  
+CREATE PROCEDURE AddProduct
+    @name NVARCHAR(20),
+    @manufacturer NVARCHAR(20),
+    @count INT,
+    @price MONEY
+AS
+INSERT INTO Products(ProductName, Manufacturer, ProductCount, Price) 
+VALUES(@name, @manufacturer, @count, @price)
+
+
+--kutse 2
+DECLARE @prodName NVARCHAR(20), @company NVARCHAR(20);
+DECLARE @prodCount INT, @price MONEY
+SET @prodName = 'Galaxy C7'
+SET @company = 'Samsung'
+SET @price = 220
+SET @prodCount = 5
+ 
+EXEC AddProduct @prodName, @company, @prodCount, @price
+ 
+SELECT * FROM Products
+
+--kutse 3
+ 
+DECLARE @prodName NVARCHAR(20), @company NVARCHAR(20);
+SET @prodName = 'Honor 9'
+SET @company = 'Huawei'
+ 
+EXEC AddProduct @name = @prodName, 
+                @manufacturer=@company,
+                @count = 3, 
+                @price = 18000
+
+
+--protsedur ilma kasutaja parametrida 
+CREATE PROCEDURE AddProductWithOptionalCount
+    @name NVARCHAR(20),
+    @manufacturer NVARCHAR(20),
+    @price MONEY,
+    @count INT = 1
+AS
+INSERT INTO Products(ProductName, Manufacturer, ProductCount, Price) 
+VALUES(@name, @manufacturer, @count, @price)
+
+
+--kutse
+DECLARE @prodName NVARCHAR(20), @company NVARCHAR(20), @price MONEY
+SET @prodName = 'Redmi Note 5A'
+SET @company = 'Xiaomi'
+SET @price = 22000
+ 
+EXEC AddProductWithOptionalCount @prodName, @company, @price
+ 
+SELECT * FROM Products
