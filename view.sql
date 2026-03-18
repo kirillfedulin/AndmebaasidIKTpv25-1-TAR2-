@@ -108,3 +108,9 @@ select * from AutoriuudisedAjalehes
 select * from uudised;
 
 update kuupäevauudised set kuupaev='2026-03-18'
+
+CREATE VIEW current_datetime_view
+AS
+SELECT GETDATE() AS current_datetime;
+
+select * from current_datetime_view
