@@ -109,8 +109,10 @@ select * from uudised;
 
 update kuupäevauudised set kuupaev='2026-03-18'
 
-CREATE VIEW current_datetime_view
+CREATE VIEW praegukuupäev
 AS
-SELECT GETDATE() AS current_datetime;
+select * from uudised
+where kuupaev = '18-03-2026'
 
-select * from current_datetime_view
+
+select * from praegukuupäev
