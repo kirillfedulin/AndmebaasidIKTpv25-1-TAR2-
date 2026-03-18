@@ -123,3 +123,12 @@ select nimi from ajakirjanik
 where len(nimi)=3;
 
 select * from ajakirjaniku_view
+
+
+create view  ajaleht_view 
+as
+select * from ajaleht
+where ajalehtNimetus like 'D%';
+
+drop view ajaleht_view 
+select * from ajaleht_view 
