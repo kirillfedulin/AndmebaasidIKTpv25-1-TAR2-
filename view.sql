@@ -116,3 +116,10 @@ where kuupaev = '18-03-2026'
 
 
 select * from praegukuupäev
+
+CREATE VIEW ajakirjaniku_view
+as
+select nimi from ajakirjanik 
+where len(nimi)=3;
+
+select * from ajakirjaniku_view
