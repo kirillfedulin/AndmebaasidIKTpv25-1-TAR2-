@@ -78,20 +78,6 @@ select * from logi;
 Drop trigger linnaKustutamine;
 drop trigger linnaLisamine
 
-
-
-
---teine triger
-CREATE TRIGGER linnaLisamine
-ON linnad
-FOR INSERT 
-AS 
-INSERT INTO logi(kuupaev, andmed)
-SELECT 
-getdate(), 
-CONCAT('lisatud linn: ', inserted.linnanimi, ' ! rahvaarv: ', inserted.rahvaarv, ' ! id: ', inserted.linnID)
-FROM inserted;
-
 --kontroll
 delete from linnad where linnID=1;
 select * from linnad;
